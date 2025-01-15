@@ -1,2 +1,10 @@
 fastapi~=0.112.2
 streamlit~=1.41.1
+requests~=2.32.3
+opencv-python~=4.10.0.84
+realesrgan~=1.0
+basicsr~=1.4.2
+pillow~=11.0.0
+torch~=2.5.1+cpu
+numpy~=1.26.4
+huggingface_hub~=0.24.6

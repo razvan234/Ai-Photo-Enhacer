@@ -1,6 +1,21 @@
-def validate_document_type(file):
-    accepted_file_types = ["image/png", "image/jpeg", "image/jpg", "image/heic", "image/heif", "image/heics", "png",
-                           "jpeg", "jpg", "heic", "heif", "heics"
-                           ]
+from fastapi import HTTPException
 
-    return file.mimetype in accepted_file_types
+
+def validate_document_type(files):
+    # Define allowed MIME types
+    ALLOWED_MIME_TYPES = {"image/png", "image/jpeg", "application/pdf"}
+
+    validated_files = []
+
+    for file in files:
+        # Validate file type
+        if file.content_type not in ALLOWED_MIME_TYPES:
+            raise HTTPException(
+                status_code=400,
+                detail=f"File type '{file.content_type}' is not allowed."
+            )
+        # Reset file pointer for further use
+        file.file.seek(0)
+        validated_files.append(file.filename)
+
+    return validated_files
